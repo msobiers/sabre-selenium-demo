@@ -1,3 +1,4 @@
+@ui
 Feature: Login
   User can sign in with valid credentials
 

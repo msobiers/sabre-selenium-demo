@@ -5,14 +5,13 @@ import io.cucumber.java.Before;
 
 public class Hooks {
 
-    @Before
+    @Before("@ui")
     public void setUp() {
         DriverFactory.getDriver();
     }
 
-    @After
+    @After("@ui")
     public void tearDown() {
         DriverFactory.quitDriver();
     }
-
 }
