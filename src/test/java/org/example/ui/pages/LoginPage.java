@@ -26,6 +26,9 @@ public class LoginPage {
     @FindBy(css = "button[type='submit']")
     private WebElement loginButton;
 
+    @FindBy(id = "flash")
+    private WebElement flashMessage;
+
     public LoginPage() {
         this.driver = DriverFactory.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -40,5 +43,9 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOf(usernameField)).sendKeys(username);
         passwordField.sendKeys(password);
         loginButton.click();
+    }
+
+    public String flashText() {
+        return wait.until(ExpectedConditions.visibilityOf(flashMessage)).getText();
     }
 }

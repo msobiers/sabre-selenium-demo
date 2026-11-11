@@ -6,24 +6,26 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverFactory {
 
-    private static WebDriver driver;
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private DriverFactory() {
     }
 
     public static WebDriver getDriver() {
-        if (driver == null) {
+        if (driver.get() == null) {
             ChromeOptions options = new ChromeOptions();
-            driver = new ChromeDriver(options);
-            driver.manage().window().maximize();
+            WebDriver webDriver = new ChromeDriver(options);
+            webDriver.manage().window().maximize();
+            driver.set(webDriver);
         }
-        return driver;
+        return driver.get();
     }
 
     public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        WebDriver webDriver = driver.get();
+        if (webDriver != null) {
+            webDriver.quit();
+            driver.remove();
         }
     }
 
